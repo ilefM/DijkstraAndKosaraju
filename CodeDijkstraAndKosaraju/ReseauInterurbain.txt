@@ -1,0 +1,82 @@
+Reseau Interurbain: Orleans Express
+15 villes
+Liste des villes:
+Quebec-Centre-Ville
+Quebec-Ste-Foy
+Montreal-Centre-Ville
+Montreal-Aeroport-Trudeau
+Laval
+Repentigny
+Berthierville
+Louiseville
+Trois-Rivieres
+Rimouski
+Chicoutimi
+Sherbrooke
+Levis
+Gatineau
+Drummondville
+Liste des trajets:
+Montreal-Centre-Ville
+Quebec-Centre-Ville
+3.15 54.0
+Quebec-Centre-Ville
+Trois-Rivieres
+1.85 32.75
+Montreal-Aeroport-Trudeau
+Quebec-Ste-Foy
+3.55 70.0
+Quebec-Ste-Foy
+Trois-Rivieres
+1.75 30.75
+Trois-Rivieres
+Repentigny
+1.50 25.75
+Trois-Rivieres
+Louiseville
+0.55 20.65
+Louiseville
+Repentigny
+0.90 31.45
+Louiseville
+Berthierville
+0.45 19.15
+Berthierville
+Laval
+0.95 28.35
+Laval
+Montreal-Centre-Ville
+0.50 25.15
+Repentigny
+Montreal-Centre-Ville
+0.65 26.45
+Montreal-Centre-Ville
+Montreal-Aeroport-Trudeau
+0.40 20.25
+Quebec-Centre-Ville
+Rimouski
+4.10 80.25
+Rimouski
+Montreal-Centre-Ville
+6.10 95.65
+Chicoutimi
+Gatineau
+7.15 105.45
+Chicoutimi
+Levis
+2.10 40.55
+Levis
+Drummondville
+2.55 50.95
+Drummondville
+Sherbrooke
+1.25 36.25
+Sherbrooke
+Chicoutimi
+4.35 89.55
+Gatineau
+Sherbrooke
+4.09 96.85
+Gatineau
+Montreal-Centre-Ville
+2.15 52.95
