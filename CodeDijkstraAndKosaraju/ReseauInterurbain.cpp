@@ -101,16 +101,15 @@ namespace TP2
 
         vector<size_t> parents = vector<size_t>(nbSommets);
 
-
         poidsCourt[unReseau.getNumeroSommet(origine)] = 0;
 
         //Commencer l'algorithme
         while(!villesRestantes.empty())
         {
-            int sourceIndex = minValueIndex(poidsCourt, villesRestantes);
+            size_t sourceIndex = minValueIndex(poidsCourt, villesRestantes);
+            if(sourceIndex == numeric_limits<int>::max()) break;
 
-            vector<size_t>::iterator it = villesRestantes.begin() + (sourceIndex - 1);
-            villesRestantes.erase(it);
+            villesRestantes.erase(remove(villesRestantes.begin(), villesRestantes.end(), sourceIndex), villesRestantes.end());
 
             vector<size_t> villesVoisines = unReseau.listerSommetsAdjacents(sourceIndex);
 
@@ -145,16 +144,34 @@ namespace TP2
         int courantIndex = unReseau.getNumeroSommet(destination);
         int stopIndex = unReseau.getNumeroSommet(origine);
         Chemin chemin = Chemin();
-        chemin.reussi = false;
-        for(int i = 0; i < nbSommets; i ++)
+        chemin.reussi = true;
+        vector<string> cheminInverse = vector<string>();
+
+        int maxIterations = nbSommets;
+        do//for(int i = 0; i < nbSommets; i ++)
         {
-            chemin.listeVilles.push_back(unReseau.getNomSommet(courantIndex));
+            if(maxIterations == 0 && unReseau.getNomSommet(courantIndex) != origine)
+            {
+                chemin.reussi = false;
+                return chemin;
+            }
+            cheminInverse.push_back(unReseau.getNomSommet(courantIndex));
             courantIndex = parents[courantIndex];
-            if(i == nbSommets-1 && origine == chemin.listeVilles[0]) chemin.reussi = true;
+            maxIterations--;
+        }while(courantIndex != stopIndex);
+        cheminInverse.push_back(unReseau.getNomSommet(courantIndex));
+
+        //chemin.listeVilles = vector<string>(nbVilles);
+        for(int i = cheminInverse.size() - 1; i >= 0; i--)
+        {
+            //int cheminIndex = (cheminInverse.size()) - i;
+            //chemin.listeVilles[cheminIndex] = cheminInverse[i];
+            chemin.listeVilles.push_back(cheminInverse[i]);
+            //if(cheminInverse[i] == origine) break;
         }
+
         if(dureeCout) chemin.dureeTotale = poidsCourt[courantIndex];
         else chemin.coutTotal = poidsCourt[courantIndex];
-
         return chemin;
     }
 
@@ -172,6 +189,7 @@ namespace TP2
             poidRestant[i] = poidsCourt[nSommet];
         }
         double minValue = *min_element(poidRestant.begin(), poidRestant.end());
+        if(minValue == numeric_limits<double>::max()) return numeric_limits<int>::max();
         for(int i = 0; i < poidsCourt.size(); i++)
         {
             if(minValue == poidsCourt[i])
@@ -179,6 +197,11 @@ namespace TP2
                 return i;
             }
         }
+    }
+
+    vector<size_t> ReseauInterurbain::supprimerLaVille(std::vector<std::size_t> & villesRestantes, std::size_t & nVille)const
+    {
+
     }
 
 
