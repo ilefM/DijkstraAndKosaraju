@@ -107,9 +107,9 @@ namespace TP2
         //Commencer l'algorithme
         while(!villesRestantes.empty())
         {
-            int sourceIndex = minValueIndex(poidsCourt);
+            int sourceIndex = minValueIndex(poidsCourt, villesRestantes);
 
-            vector<size_t>::iterator it = villesRestantes.begin() + sourceIndex;
+            vector<size_t>::iterator it = villesRestantes.begin() + (sourceIndex - 1);
             villesRestantes.erase(it);
 
             vector<size_t> villesVoisines = unReseau.listerSommetsAdjacents(sourceIndex);
@@ -139,21 +139,22 @@ namespace TP2
                     }
                 }
             }
-
         }
 
         //Creation du chemin
         int courantIndex = unReseau.getNumeroSommet(destination);
         int stopIndex = unReseau.getNumeroSommet(origine);
         Chemin chemin = Chemin();
-        do
+        chemin.reussi = false;
+        for(int i = 0; i < nbSommets; i ++)
         {
             chemin.listeVilles.push_back(unReseau.getNomSommet(courantIndex));
             courantIndex = parents[courantIndex];
+            if(i == nbSommets-1 && origine == chemin.listeVilles[0]) chemin.reussi = true;
         }
-        while(courantIndex != stopIndex);
-        chemin.listeVilles.push_back(unReseau.getNomSommet(courantIndex));
         if(dureeCout) chemin.dureeTotale = poidsCourt[courantIndex];
+        else chemin.coutTotal = poidsCourt[courantIndex];
+
         return chemin;
     }
 
@@ -162,20 +163,35 @@ namespace TP2
         return std::vector<std::vector<std::string>>();
     }
 
-    int ReseauInterurbain::minValueIndex(const vector<double> poidsCourt) const
+    int ReseauInterurbain::minValueIndex(const vector<double> & poidsCourt, const vector<size_t> & villesRestantes) const
     {
-        int minValue = poidsCourt[0];
-        int indexMin = 0;
-        for(int i = 1; i < poidsCourt.size(); i++ )
+        vector<double> poidRestant = vector<double>(villesRestantes.size());
+        for(int i = 0; i < poidRestant.size(); i++)
         {
-            if(poidsCourt[i] < minValue)
+            int nSommet = villesRestantes[i];
+            poidRestant[i] = poidsCourt[nSommet];
+        }
+        double minValue = *min_element(poidRestant.begin(), poidRestant.end());
+        for(int i = 0; i < poidsCourt.size(); i++)
+        {
+            if(minValue == poidsCourt[i])
             {
-                minValue = poidsCourt[i];
-                indexMin = i;
+                return i;
             }
         }
-        return indexMin;
     }
+
+
+    /*
+    bool ReseauInterurbain::dejaTraitee(const size_t & sommet, const std::vector<std::size_t> & villesRestantes) const
+    {
+        for(int i = 0; i < villesRestantes.size(); i ++)
+        {
+            if(sommet == villesRestantes[i])return false;
+        }
+        return true;
+    }
+     */
 
     bool ReseauInterurbain::verifieAbsence(const string &ville) const
     {

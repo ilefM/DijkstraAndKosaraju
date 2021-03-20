@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug"/>
+				<Option working_dir="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug"/>
+				<Option working_dir="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug"/>
+				<Option working_dir="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TP2">
-				<Option output="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/TP2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug"/>
+				<Option output="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/TP2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -54,15 +54,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 TP2"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 TP2"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TP2/fast">
-				<Option output="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/TP2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug"/>
+				<Option output="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/TP2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -77,29 +77,29 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 TP2/fast"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/CodeTP2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 TP2/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/Graphe.cpp">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/Graphe.cpp">
 			<Option target="TP2"/>
 		</Unit>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/Graphe.h">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/Graphe.h">
 			<Option target="TP2"/>
 		</Unit>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/Principal.cpp">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/Principal.cpp">
 			<Option target="TP2"/>
 		</Unit>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/ReseauInterurbain.cpp">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/ReseauInterurbain.cpp">
 			<Option target="TP2"/>
 		</Unit>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/ReseauInterurbain.h">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/ReseauInterurbain.h">
 			<Option target="TP2"/>
 		</Unit>
-		<Unit filename="/home/etudiant/CLionProjects/CodeTP2/CMakeLists.txt">
+		<Unit filename="/home/etudiant/CLionProjects/DijkstraAndKosaraju/CodeDijkstraAndKosaraju/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

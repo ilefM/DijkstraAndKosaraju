@@ -84,7 +84,8 @@ private:
 	// Vous pouvez définir des constantes ici. À vous de voir!
 
 	//Vous pouvez ajoutez d'autres méthodes privées si vous sentez leur nécessité
-    int minValueIndex(const std::vector<double> poidsCourt) const;
+    int minValueIndex(const std::vector<double> & poidsCourt, const std::vector<std::size_t> & villesRestantes) const;
+    //bool dejaTraitee(const size_t & sommet, const std::vector<std::size_t> & villesRestantes) const;
     bool verifieAbsence(const std::string &ville)const;
 
 };
