@@ -9,7 +9,7 @@
  *
  */
 #include <sstream>
-#include <fstream>
+//#include <fstream>
 #include "ReseauInterurbain.h"
 #include <limits>
 #include <algorithm>
@@ -100,6 +100,7 @@ namespace TP2
         for(int v = 0; v < nbSommets; v++) villesRestantes[v] = v;
 
         vector<size_t> parents = vector<size_t>(nbSommets);
+        for(int p = 0; p < nbSommets; p++) parents[p] = numeric_limits<size_t>::max();
 
         poidsCourt[unReseau.getNumeroSommet(origine)] = 0;
 
@@ -148,9 +149,9 @@ namespace TP2
         vector<string> cheminInverse = vector<string>();
 
         int maxIterations = nbSommets;
-        do//for(int i = 0; i < nbSommets; i ++)
+        do
         {
-            if(maxIterations == 0 && unReseau.getNomSommet(courantIndex) != origine)
+            if(maxIterations == 0 || courantIndex == numeric_limits<size_t>::max())
             {
                 chemin.reussi = false;
                 return chemin;
@@ -161,17 +162,10 @@ namespace TP2
         }while(courantIndex != stopIndex);
         cheminInverse.push_back(unReseau.getNomSommet(courantIndex));
 
-        //chemin.listeVilles = vector<string>(nbVilles);
-        for(int i = cheminInverse.size() - 1; i >= 0; i--)
-        {
-            //int cheminIndex = (cheminInverse.size()) - i;
-            //chemin.listeVilles[cheminIndex] = cheminInverse[i];
-            chemin.listeVilles.push_back(cheminInverse[i]);
-            //if(cheminInverse[i] == origine) break;
-        }
+        for(int i = cheminInverse.size() - 1; i >= 0; i--)chemin.listeVilles.push_back(cheminInverse[i]);
 
-        if(dureeCout) chemin.dureeTotale = poidsCourt[courantIndex];
-        else chemin.coutTotal = poidsCourt[courantIndex];
+        if(dureeCout) chemin.dureeTotale = poidsCourt[unReseau.getNumeroSommet(destination)];
+        else chemin.coutTotal = poidsCourt[unReseau.getNumeroSommet(destination)];
         return chemin;
     }
 
@@ -198,23 +192,6 @@ namespace TP2
             }
         }
     }
-
-    vector<size_t> ReseauInterurbain::supprimerLaVille(std::vector<std::size_t> & villesRestantes, std::size_t & nVille)const
-    {
-
-    }
-
-
-    /*
-    bool ReseauInterurbain::dejaTraitee(const size_t & sommet, const std::vector<std::size_t> & villesRestantes) const
-    {
-        for(int i = 0; i < villesRestantes.size(); i ++)
-        {
-            if(sommet == villesRestantes[i])return false;
-        }
-        return true;
-    }
-     */
 
     bool ReseauInterurbain::verifieAbsence(const string &ville) const
     {
