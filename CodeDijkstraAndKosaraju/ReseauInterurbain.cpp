@@ -13,6 +13,7 @@
 #include "ReseauInterurbain.h"
 #include <limits>
 #include <algorithm>
+#include <stack>
 //vous pouvez inclure d'autres librairies si c'est nécessaire
 
 namespace TP2
@@ -25,9 +26,7 @@ namespace TP2
         this->nomReseau = nomReseau;
     }
 
-    ReseauInterurbain::~ReseauInterurbain()
-    {
-    }
+    ReseauInterurbain::~ReseauInterurbain() = default;//Ce sont des conteneurs de la stl ils ont leur propre destructeur
 
     void ReseauInterurbain::resize(size_t nouvelleTaille)
     {
@@ -91,16 +90,11 @@ namespace TP2
         if(!verifieAbsence(origine) || !verifieAbsence(destination)) throw logic_error("si origine et/ou destination absent du réseau");
 
         //Initialisation
-        int nbSommets = unReseau.getNombreSommets();
+        vector<double> poidsCourt(unReseau.getNombreSommets(), numeric_limits<double>::max());
+        vector<size_t> villesRestantes(unReseau.getNombreSommets());
+        for(int v = 0; v < unReseau.getNombreSommets(); v++) villesRestantes[v] = v;
 
-        vector<double> poidsCourt = vector<double>(nbSommets);
-        for(int p = 0; p < nbSommets; p++) poidsCourt[p] = numeric_limits<double>::max();
-
-        vector<size_t> villesRestantes = vector<size_t>(nbSommets);
-        for(int v = 0; v < nbSommets; v++) villesRestantes[v] = v;
-
-        vector<size_t> parents = vector<size_t>(nbSommets);
-        for(int p = 0; p < nbSommets; p++) parents[p] = numeric_limits<size_t>::max();
+        vector<size_t> parents(unReseau.getNombreSommets(), numeric_limits<size_t>::max());
 
         poidsCourt[unReseau.getNumeroSommet(origine)] = 0;
 
@@ -148,7 +142,7 @@ namespace TP2
         chemin.reussi = true;
         vector<string> cheminInverse = vector<string>();
 
-        int maxIterations = nbSommets;
+        int maxIterations = unReseau.getNombreSommets();
         do
         {
             if(maxIterations == 0 || courantIndex == numeric_limits<size_t>::max())
@@ -171,6 +165,14 @@ namespace TP2
 
     std::vector<std::vector<std::string>> ReseauInterurbain::algorithmeKosaraju()
     {
+        //Partie 1 DFS
+        vector<size_t> listeVilles = parcoursProfondeur();
+
+        //Partie 2 Inverser le graphe
+        vector<vector<size_t>> graphInverse = inverserGraph();
+
+        //Partie 3 DFS avec listeVilles
+        //Je vais faire un DFS mais a partir de la liste deja eu... je vais devoir utiliser une pile a la place de la liste.
         return std::vector<std::vector<std::string>>();
     }
 
@@ -204,6 +206,79 @@ namespace TP2
             }
         }
         return existe;
+    }
+
+    std::vector<size_t> ReseauInterurbain::parcoursProfondeur()
+    {
+        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
+        vector<size_t> sommetsParcourus = vector<size_t>();
+
+        for(int i = 0; i < unReseau.getNombreSommets(); i++)
+        {
+            if(!dejaVisite[i])
+            {
+                stack<size_t> pileSommets;
+                pileSommets.push(i);
+                dejaVisite[i] = true;
+
+                vector<size_t> parcours;
+
+                while(!pileSommets.empty())
+                {
+                    auto sommetATraite = pileSommets.top();
+                    pileSommets.pop();
+                    //parcours.push_back(sommetATraite);
+                    sommetsParcourus.push_back(sommetATraite);
+
+                    for(size_t villeVoisine : unReseau.listerSommetsAdjacents(sommetATraite))
+                    {
+                        if(!dejaVisite[villeVoisine])
+                        {
+                            dejaVisite[villeVoisine] = true;
+                            pileSommets.push(villeVoisine);
+                        }
+                    }
+                }
+            }
+        }
+        return sommetsParcourus;
+    }
+
+
+    std::vector<std::vector<size_t>> ReseauInterurbain::inverserGraph()
+    {
+        vector<vector<std::size_t>> graphInverse(unReseau.getNombreSommets());
+        for(int i = 0; i < unReseau.getNombreSommets(); i++)
+            for(size_t villeVoisine : unReseau.listerSommetsAdjacents(i))
+                graphInverse[villeVoisine].push_back(i);
+        return graphInverse;
+    }
+
+    std::vector<size_t> ReseauInterurbain::parcoursProfondeurrrr(size_t debut)
+    {
+        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
+        stack<size_t> pileSommets;
+        pileSommets.push(debut);
+        dejaVisite[debut] = true;
+
+        vector<size_t> parcours;
+
+        while(!pileSommets.empty())
+        {
+            auto sommetATraite = pileSommets.top();
+            pileSommets.pop();
+            parcours.push_back(sommetATraite);
+
+            for(size_t villeVoisine : unReseau.listerSommetsAdjacents(sommetATraite))
+            {
+                if(!dejaVisite[villeVoisine])
+                {
+                    dejaVisite[villeVoisine] = true;
+                    pileSommets.push(villeVoisine);
+                }
+            }
+        }
+        return parcours;
     }
 
 }//Fin du namespace

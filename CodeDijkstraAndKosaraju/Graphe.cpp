@@ -25,10 +25,8 @@ namespace TP2
         listesAdj = vector<list<Arc>>(nbSommets);
     }
 
-    Graphe::~Graphe()
-    {
-        //Ce sont des conteneurs de la stl ils ont leur propre destructeur
-    }
+    Graphe::~Graphe() = default;//Ce sont des conteneurs de la stl ils ont leur propre destructeur
+
 
     void Graphe::resize(size_t nouvelleTaille)
     {
