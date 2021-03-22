@@ -16,6 +16,7 @@
 #include <climits>
 #include <vector>
 #include <list>
+#include <stack>
 //vous pouvez inclure d'autres librairies de la STL si vous pensez les utiliser
 
 

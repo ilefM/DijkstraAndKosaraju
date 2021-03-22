@@ -166,14 +166,46 @@ namespace TP2
     std::vector<std::vector<std::string>> ReseauInterurbain::algorithmeKosaraju()
     {
         //Partie 1 DFS
-        vector<size_t> listeVilles = parcoursProfondeur();
+        vector<size_t> villesDFS1 = parcoursProfondeur();
 
-        //Partie 2 Inverser le graphe
+        //Partie 2 Inverser le graph
         vector<vector<size_t>> graphInverse = inverserGraph();
 
         //Partie 3 DFS avec listeVilles
-        //Je vais faire un DFS mais a partir de la liste deja eu... je vais devoir utiliser une pile a la place de la liste.
-        return std::vector<std::vector<std::string>>();
+        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
+        vector<vector<string>> cFC;
+
+        for(int i = villesDFS1.size() - 1; i >= 0; i --)
+        {
+            if(!dejaVisite[i])
+            {
+                auto ville = villesDFS1[i];
+                //villesDFS1.pop();
+                stack<size_t> pileSommets;
+                pileSommets.push(ville);
+                dejaVisite[ville] = true;
+                vector<string> composante;
+
+                while (!pileSommets.empty())
+                {
+                    auto villeATraiter = pileSommets.top();
+                    pileSommets.pop();
+                    //villesDFS1.pop();
+                    composante.push_back(unReseau.getNomSommet(villeATraiter));
+
+                    for(size_t villeVoisine : graphInverse[villeATraiter])
+                    {
+                        if(!dejaVisite[villeVoisine])
+                        {
+                            dejaVisite[villeVoisine] = true;
+                            pileSommets.push(villeVoisine);
+                        }
+                    }
+                }
+                cFC.push_back(composante);
+            }
+        }
+        return cFC;
     }
 
     int ReseauInterurbain::minValueIndex(const vector<double> & poidsCourt, const vector<size_t> & villesRestantes) const
@@ -208,10 +240,10 @@ namespace TP2
         return existe;
     }
 
-    std::vector<size_t> ReseauInterurbain::parcoursProfondeur()
+    vector<size_t> ReseauInterurbain::parcoursProfondeur()
     {
         vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
-        vector<size_t> sommetsParcourus = vector<size_t>();
+        vector<size_t> sommetsParcourus;
 
         for(int i = 0; i < unReseau.getNombreSommets(); i++)
         {
@@ -225,12 +257,12 @@ namespace TP2
 
                 while(!pileSommets.empty())
                 {
-                    auto sommetATraite = pileSommets.top();
+                    auto sommetATraiter = pileSommets.top();
                     pileSommets.pop();
                     //parcours.push_back(sommetATraite);
-                    sommetsParcourus.push_back(sommetATraite);
+                    sommetsParcourus.push_back(sommetATraiter);
 
-                    for(size_t villeVoisine : unReseau.listerSommetsAdjacents(sommetATraite))
+                    for(size_t villeVoisine : unReseau.listerSommetsAdjacents(sommetATraiter))
                     {
                         if(!dejaVisite[villeVoisine])
                         {
