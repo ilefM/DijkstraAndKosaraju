@@ -14,54 +14,87 @@
 
 namespace TP2
 {
-    using namespace std;
 	//Mettez l'implémentation de vos méthodes ici.
 
+    /**
+     * \fn	Graph::Graph(size_t nbSommets)
+     * \brief constructeur avec parametres. initialisation de l'attribut nbSommets parametre nbSommets.
+     * \param[in] nbSommets (nombre de sommets)
+     */
     Graphe::Graphe(size_t nbSommets)
     {
         this->nbSommets = nbSommets;
         nbArcs = 0;
-        noms = vector<string>(nbSommets);
-        listesAdj = vector<list<Arc>>(nbSommets);
+        noms = std::vector<std::string>(nbSommets);
+        listesAdj = std::vector<std::list<Arc>>(nbSommets);
     }
 
-    Graphe::~Graphe() = default;//Ce sont des conteneurs de la stl ils ont leur propre destructeur
+    /**
+     * \fn	Graph::~Graph()
+     * \brief destructeur de l'objet. Ici on ne fait rien car les attribut sont des conteneurs de la STL (noms et listesAdj) qui ont leur propre destructeur
+     */
+    Graphe::~Graphe() = default;
 
 
+    /**
+     * \fn	Graph::resize(size_t nouvelleTaille)
+     * \brief Change la taille du graph en changant le nombre de sommets
+     * \param[in] nouvelleTaille (nombre de sommets)
+     */
     void Graphe::resize(size_t nouvelleTaille)
     {
         nbSommets = nouvelleTaille;
         nbArcs = 0;
-        noms = vector<string>(nbSommets);
-        listesAdj = vector<list<Arc>>(nbSommets);
+        noms = std::vector<std::string>(nbSommets);
+        listesAdj = std::vector<std::list<Arc>>(nbSommets);
     }
 
+    /**
+     * \fn	Graph::nommer(size_t sommet, const std::string& nom)
+     * \brief Change un nom du sommet
+     * \param[in] sommet, nom
+     * \exception Le sommet entré est supérieur au nombre de sommets
+     */
     void Graphe::nommer(size_t sommet, const std::string& nom)
     {
-        if(sommet > nbSommets) throw logic_error("Le sommet entré est supérieur au nombre de sommets");
+        if(sommet > nbSommets) throw std::logic_error("Le sommet entré est supérieur au nombre de sommets");
         noms[sommet] = nom;
     }
 
+    /**
+     * \fn	Graph::ajouterArc(size_t source, size_t destination, float duree, float cout)
+     * \brief Ajout un arc dans le graph entre deux sommets (source et destination)
+     * \param[in] source, destination, duree, cout
+     * \exception La source ou la destination est supérieur au nombre de sommets
+     * \exception L'arc existe déjà
+     */
     void Graphe::ajouterArc(size_t source, size_t destination, float duree, float cout)
     {
-        if(source > nbSommets || destination > nbSommets) throw logic_error("La source ou la destination est supérieur au nombre de sommets");
+        if(source > nbSommets || destination > nbSommets) throw std::logic_error("La source ou la destination est supérieur au nombre de sommets");
 
-        list<Arc> arcsSource = listesAdj[source];
+        std::list<Arc> arcsSource = listesAdj[source];
 
-        for(list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
-            if(i->destination == destination) throw logic_error("L'arc existe déjà");
+        for(std::list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
+            if(i->destination == destination) throw std::logic_error("L'arc existe déjà");
 
         listesAdj[source].push_back(Arc(destination, Ponderations(duree, cout)));
         nbArcs++;
     }
 
+    /**
+     * \fn	Graph::enleverArc(size_t source, size_t destination)
+     * \brief Supprime un arc dans le graph entre deux sommets (source et destination)
+     * \param[in] source, destination
+     * \exception La source ou la destination est supérieur au nombre de sommets
+     * \exception Peut pas retirer un arc qui n'existe pas
+     */
     void Graphe::enleverArc(size_t source, size_t destination)
     {
-        if(source > nbSommets || destination > nbSommets) throw logic_error("La source ou la destination est supérieur au nombre de sommets");
+        if(source > nbSommets || destination > nbSommets) throw std::logic_error("La source ou la destination est supérieur au nombre de sommets");
 
-        list<Arc> arcsSource = listesAdj[source];
+        std::list<Arc> arcsSource = listesAdj[source];
 
-        for(list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
+        for(std::list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
         {
             if(i->destination == destination)
             {
@@ -70,84 +103,116 @@ namespace TP2
                 return;
             }
         }
-
-        throw logic_error("peut pas retirer un arc qui n'existe pas");
-
-
+        throw std::logic_error("Peut pas retirer un arc qui n'existe pas");
     }
 
+    /**
+     * \fn	Graph::arcExiste(size_t source, size_t destination) const
+     * \brief Verifie si un arc existe dans le graph entre deux sommets (source et destination)
+     * \param[in] source, destination
+     * \return vrai si l'arc existe, faux dans le cas contraire
+     * \exception La source ou la destination est supérieur au nombre de sommets
+     */
     bool Graphe::arcExiste(size_t source, size_t destination) const
     {
-        if(source > nbSommets || destination > nbSommets) throw logic_error("La source ou la destination est supérieur au nombre de sommets");
+        if(source > nbSommets || destination > nbSommets) throw std::logic_error("La source ou la destination est supérieur au nombre de sommets");
 
-        list<Arc> arcsSource = listesAdj[source];
-        for(list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
+        std::list<Arc> arcsSource = listesAdj[source];
+        for(std::list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
             if(i->destination == destination) return true;
 
         return false;
     }
 
+    /**
+     * \fn	Graph::listerSommetsAdjacents(size_t sommet) const
+     * \brief Retourne la liste d'adjacence d'un sommet (sommets connectes au sommet en parametre)
+     * \param[in] sommet
+     * \return vector<size_t> (liste d'adjacence)
+     * \exception Le sommet entré est supérieur au nombre de sommets
+     */
     std::vector<size_t> Graphe::listerSommetsAdjacents(size_t sommet) const
     {
-        if(sommet > nbSommets) throw logic_error("Le sommet entré est supérieur au nombre de sommets");
+        if(sommet > nbSommets) throw std::logic_error("Le sommet entré est supérieur au nombre de sommets");
 
-        list<Arc> arcsSommet = listesAdj[sommet];
-        vector<size_t> sommetsAdjacents;
-        for(list<Arc>::iterator i = arcsSommet.begin(); i != arcsSommet.end(); i++)
+        std::list<Arc> arcsSommet = listesAdj[sommet];
+        std::vector<size_t> sommetsAdjacents;
+        for(std::list<Arc>::iterator i = arcsSommet.begin(); i != arcsSommet.end(); i++)
             sommetsAdjacents.push_back(i->destination);
 
         return sommetsAdjacents;
     }
 
+    /**
+     * \fn	Graph::getNomSommet(size_t sommet) const
+     * \brief Avoir le nom d'un sommet a partir de son numero
+     * \param[in] sommet
+     * \return string (nom d'un sommet)
+     * \exception Le sommet est supérieur au nombre de sommets
+     */
     std::string Graphe::getNomSommet(size_t sommet) const
     {
+        if(sommet > nbSommets) std::logic_error("Le sommet est supérieur au nombre de sommets");
         return noms[sommet];
     }
 
-    size_t Graphe::getNumeroSommet(const string& nom) const
+    /**
+     * \fn	Graph::getNumeroSommet(const std::string& nom) const
+     * \brief Avoir le numero d'un sommet partir de son nom
+     * \param[in] nom
+     * \return size_t (numero d'un sommet)
+     * \exception Le numero n'existe pas dans le graphe
+     */
+    size_t Graphe::getNumeroSommet(const std::string& nom) const
     {
         size_t i = 0;
-        for(string n : noms)
+        for(std::string n : noms)
         {
             if(nom == noms[i]) return i;
             i++;
         }
-
-        throw logic_error("Le nom n'existe pas dans le graphe");
+        throw std::logic_error("Le numero n'existe pas dans le graphe");
     }
 
-
+    /**
+     * \fn	Graph::getNombreSommets() const
+     * \brief Avoir le nombre du sommet du graph
+     * \return int (nombre de sommets du graph)
+     */
     int Graphe::getNombreSommets() const
     {
         return noms.capacity();
     }
 
+    /**
+    * \fn	Graph::getNombreArcs() const
+    * \brief Avoir le nombre d'arcs du graph
+    * \return int (nombre d'arcs du graph)
+    */
     int Graphe::getNombreArcs() const
     {
         return nbArcs;
     }
 
+    /**
+    * \fn	Graph::getPonderationsArc(size_t source, size_t destination)
+    * \brief Avoir la ponderation(duree et cout) d'un trajet entre la ville source et la ville destination
+    * \param source, destination
+    * \return ponderation de l'arc
+    * \exception La source ou la destination est supérieur au nombre de sommets.
+     *\exception Peut pas avoir la ponderation d'un arc qui n'existe pas
+    */
     Ponderations Graphe::getPonderationsArc(size_t source, size_t destination) const
     {
-        if(source > nbSommets || destination > nbSommets) throw logic_error("La source ou la destination est supérieur au nombre de sommets");
+        if(source > nbSommets || destination > nbSommets) throw std::logic_error("La source ou la destination est supérieur au nombre de sommets");
 
-        list<Arc> arcsSource = listesAdj[source];
-
-        for(list<Arc>::iterator i = arcsSource.begin(); i != arcsSource.end(); i++)
+        for(Arc arc : listesAdj[source])
         {
-            if(i->destination == destination)
+            if(arc.destination == destination)
             {
-                return i->poids;
+                return arc.poids;
             }
         }
-
-        throw logic_error("peut pas retirer un arc qui n'existe pas");
+        throw std::logic_error("Peut pas avoir la ponderation d'un arc qui n'existe pas");
     }
-
-    /*
-    vector<string> Graphe::getNomsSommets() const
-    {
-        return noms;
-    }
-     */
 }//Fin du namespace

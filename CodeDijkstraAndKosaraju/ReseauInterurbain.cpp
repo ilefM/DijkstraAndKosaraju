@@ -18,22 +18,41 @@
 
 namespace TP2
 {
-    using namespace std;
 
+    /**
+     * \fn	ReseauInterurbain::ReseauInterurbain(std::string nomReseau, size_t nbVilles)
+     * \brief constructeur avec parametres. initialisation de l'attribut nomReseau et nbVille avec les parametres.
+     * \param[in] nomReseau, nbVilles
+     */
     ReseauInterurbain::ReseauInterurbain(std::string nomReseau, size_t nbVilles)
     {
         unReseau = Graphe(nbVilles);
         this->nomReseau = nomReseau;
     }
 
-    ReseauInterurbain::~ReseauInterurbain() = default;//Ce sont des conteneurs de la stl ils ont leur propre destructeur
+    /**
+     * \fn	ReseauInterurbain::~ReseauInterurbain()
+     * \brief destructeur de l'objet. Ici on ne fait rien car les attribut sont des conteneurs de la STL qui ont leur propre destructeur
+     */
+    ReseauInterurbain::~ReseauInterurbain() = default;
 
+    /**
+     * \fn	ReseauInterurbain::resize(size_t nouvelleTaille)
+     * \brief Change la taille du graph en appelant la fonction de la classe Graph
+     * \param[in] nouvelleTaille
+     */
     void ReseauInterurbain::resize(size_t nouvelleTaille)
     {
         unReseau.resize(nouvelleTaille);
     }
 
 
+    /**
+     * \fn	ReseauInterurbain::chargerReseau(std::ifstream & fichierEntree)
+     * \brief Charge le graph avec les aretes
+     * \param[in] fichierEntree
+     * \exception ReseauInterurbain::chargerReseau: Le fichier n'est pas ouvert !
+     */
     // Méthode fournie
     void ReseauInterurbain::chargerReseau(std::ifstream & fichierEntree)
     {
@@ -85,16 +104,23 @@ namespace TP2
         }
     }
 
+    /**
+     * \fn	ReseauInterurbain::rechercheCheminDijkstra(const std::string &origine, const std::string &destination, bool dureeCout)
+     * \brief recherche du chemin le plus court entre un sommet origin et une destination en utilisant l'algorithme de Dijkstra et calculer la duree du trajet ou son cout dependemment de la valeur bool
+     * \param[in] origine, destination, dureeCout
+     * \return Chemin
+     * \exception Origine et/ou destination absent du réseau
+     */
     Chemin ReseauInterurbain::rechercheCheminDijkstra(const std::string &origine, const std::string &destination, bool dureeCout) const
     {
-        if(!verifieAbsence(origine) || !verifieAbsence(destination)) throw logic_error("si origine et/ou destination absent du réseau");
+        if(!verifieAbsence(origine) || !verifieAbsence(destination)) throw std::logic_error("Origine et/ou destination absent du réseau");
 
         //Initialisation
-        vector<double> poidsCourt(unReseau.getNombreSommets(), numeric_limits<double>::max());
-        vector<size_t> villesRestantes(unReseau.getNombreSommets());
+        std::vector<double> poidsCourt(unReseau.getNombreSommets(), std::numeric_limits<double>::max());
+        std::vector<size_t> villesRestantes(unReseau.getNombreSommets());
         for(int v = 0; v < unReseau.getNombreSommets(); v++) villesRestantes[v] = v;
 
-        vector<size_t> parents(unReseau.getNombreSommets(), numeric_limits<size_t>::max());
+        std::vector<size_t> parents(unReseau.getNombreSommets(), std::numeric_limits<size_t>::max());
 
         poidsCourt[unReseau.getNumeroSommet(origine)] = 0;
 
@@ -102,11 +128,11 @@ namespace TP2
         while(!villesRestantes.empty())
         {
             size_t sourceIndex = minValueIndex(poidsCourt, villesRestantes);
-            if(sourceIndex == numeric_limits<int>::max()) break;
+            if(sourceIndex == std::numeric_limits<int>::max()) break;
 
             villesRestantes.erase(remove(villesRestantes.begin(), villesRestantes.end(), sourceIndex), villesRestantes.end());
 
-            vector<size_t> villesVoisines = unReseau.listerSommetsAdjacents(sourceIndex);
+            std::vector<size_t> villesVoisines = unReseau.listerSommetsAdjacents(sourceIndex);
 
             for(int i = 0; i < villesVoisines.size(); i++)
             {
@@ -140,12 +166,12 @@ namespace TP2
         int stopIndex = unReseau.getNumeroSommet(origine);
         Chemin chemin = Chemin();
         chemin.reussi = true;
-        vector<string> cheminInverse = vector<string>();
+        std::vector<std::string> cheminInverse = std::vector<std::string>();
 
         int maxIterations = unReseau.getNombreSommets();
         do
         {
-            if(maxIterations == 0 || courantIndex == numeric_limits<size_t>::max())
+            if(maxIterations == 0 || courantIndex == std::numeric_limits<size_t>::max())
             {
                 chemin.reussi = false;
                 return chemin;
@@ -163,17 +189,22 @@ namespace TP2
         return chemin;
     }
 
+    /**
+     * \fn	ReseauInterurbain::algorithmeKosaraju()
+     * \brief trouver les composantes fortement connexes en utilisant l'algorithme de Kosaraju.
+     * \return std::vector<std::vector<std::string>> des composantes
+     */
     std::vector<std::vector<std::string>> ReseauInterurbain::algorithmeKosaraju()
     {
         //Partie 1 DFS
-        vector<size_t> villesDFS1 = parcoursProfondeur();
+        std::vector<size_t> villesDFS1 = parcoursProfondeur();
 
         //Partie 2 Inverser le graph
-        vector<vector<size_t>> graphInverse = inverserGraph();
+        std::vector<std::vector<size_t>> graphInverse = inverserGraph();
 
         //Partie 3 DFS avec listeVilles
-        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
-        vector<vector<string>> cFC;
+        std::vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
+        std::vector<std::vector<std::string>> cFC;
 
         for(int i = villesDFS1.size() - 1; i >= 0; i --)
         {
@@ -181,10 +212,10 @@ namespace TP2
             {
                 auto ville = villesDFS1[i];
                 //villesDFS1.pop();
-                stack<size_t> pileSommets;
+                std::stack<size_t> pileSommets;
                 pileSommets.push(ville);
                 dejaVisite[ville] = true;
-                vector<string> composante;
+                std::vector<std::string> composante;
 
                 while (!pileSommets.empty())
                 {
@@ -208,16 +239,22 @@ namespace TP2
         return cFC;
     }
 
-    int ReseauInterurbain::minValueIndex(const vector<double> & poidsCourt, const vector<size_t> & villesRestantes) const
+    /**
+     * \fn	ReseauInterurbain::minValueIndex(const std::vector<double> & poidsCourt, const std::vector<size_t> & villesRestantes)
+     * \brief Trouve la valeur minimale de poidsCourt a chaque iteration de l'algorithme de Dijkstra. Si il y a deux valeur minimales, retourne le premier rencontrer
+     * \param[in] poidsCourt, villesRestantes
+     * \return L'index de l'element le plus petit du vecteur
+     */
+    int ReseauInterurbain::minValueIndex(const std::vector<double> & poidsCourt, const std::vector<size_t> & villesRestantes) const
     {
-        vector<double> poidRestant = vector<double>(villesRestantes.size());
+        std::vector<double> poidRestant = std::vector<double>(villesRestantes.size());
         for(int i = 0; i < poidRestant.size(); i++)
         {
             int nSommet = villesRestantes[i];
             poidRestant[i] = poidsCourt[nSommet];
         }
         double minValue = *min_element(poidRestant.begin(), poidRestant.end());
-        if(minValue == numeric_limits<double>::max()) return numeric_limits<int>::max();
+        if(minValue == std::numeric_limits<double>::max()) return std::numeric_limits<int>::max();
         for(int i = 0; i < poidsCourt.size(); i++)
         {
             if(minValue == poidsCourt[i])
@@ -227,7 +264,13 @@ namespace TP2
         }
     }
 
-    bool ReseauInterurbain::verifieAbsence(const string &ville) const
+    /**
+     * \fn	ReseauInterurbain::minValueIndex(const std::vector<double> & poidsCourt, const std::vector<size_t> & villesRestantes)
+     * \brief verifie si la ville est absente dans le graph
+     * \param[in] ville
+     * \return vrai si la ville est absente, faux dans le cas contraire
+     */
+    bool ReseauInterurbain::verifieAbsence(const std::string &ville) const
     {
         bool existe = false;
         for(int i = 0; i < unReseau.getNombreSommets(); i++)
@@ -240,20 +283,25 @@ namespace TP2
         return existe;
     }
 
-    vector<size_t> ReseauInterurbain::parcoursProfondeur()
+    /**
+     * \fn	ReseauInterurbain::parcoursProfondeur()
+     * \brief effectue un parcours en profondeur du graph
+     * \return un vecteur des sommet parcours en ordre dans le parcours en profondeur
+     */
+    std::vector<size_t> ReseauInterurbain::parcoursProfondeur()
     {
-        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
-        vector<size_t> sommetsParcourus;
+        std::vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
+        std::vector<size_t> sommetsParcourus;
 
         for(int i = 0; i < unReseau.getNombreSommets(); i++)
         {
             if(!dejaVisite[i])
             {
-                stack<size_t> pileSommets;
+                std::stack<size_t> pileSommets;
                 pileSommets.push(i);
                 dejaVisite[i] = true;
 
-                vector<size_t> parcours;
+                std::vector<size_t> parcours;
 
                 while(!pileSommets.empty())
                 {
@@ -276,41 +324,18 @@ namespace TP2
         return sommetsParcourus;
     }
 
-
+    /**
+     * \fn	ReseauInterurbain::inverserGraph()
+     * \brief Inverse tous les arcs du graph
+     * \return la liste d'adjacence du graph inverse
+     */
     std::vector<std::vector<size_t>> ReseauInterurbain::inverserGraph()
     {
-        vector<vector<std::size_t>> graphInverse(unReseau.getNombreSommets());
+        std::vector<std::vector<std::size_t>> graphInverse(unReseau.getNombreSommets());
         for(int i = 0; i < unReseau.getNombreSommets(); i++)
             for(size_t villeVoisine : unReseau.listerSommetsAdjacents(i))
                 graphInverse[villeVoisine].push_back(i);
         return graphInverse;
-    }
-
-    std::vector<size_t> ReseauInterurbain::parcoursProfondeurrrr(size_t debut)
-    {
-        vector<bool> dejaVisite(unReseau.getNombreSommets(), false);
-        stack<size_t> pileSommets;
-        pileSommets.push(debut);
-        dejaVisite[debut] = true;
-
-        vector<size_t> parcours;
-
-        while(!pileSommets.empty())
-        {
-            auto sommetATraite = pileSommets.top();
-            pileSommets.pop();
-            parcours.push_back(sommetATraite);
-
-            for(size_t villeVoisine : unReseau.listerSommetsAdjacents(sommetATraite))
-            {
-                if(!dejaVisite[villeVoisine])
-                {
-                    dejaVisite[villeVoisine] = true;
-                    pileSommets.push(villeVoisine);
-                }
-            }
-        }
-        return parcours;
     }
 
 }//Fin du namespace

@@ -88,7 +88,6 @@ private:
     int minValueIndex(const std::vector<double> & poidsCourt, const std::vector<std::size_t> & villesRestantes) const;
     bool verifieAbsence(const std::string &ville)const;
     std::vector<size_t> parcoursProfondeur();
-    std::vector<size_t> parcoursProfondeurrrr(size_t sommet);
     std::vector<std::vector<size_t>> inverserGraph();
 
 };
